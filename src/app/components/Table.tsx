@@ -35,12 +35,10 @@ const data = [
   },
 ];
 
-// Bảng phân trang
 const Table = () => {
-  const totalRows = 50; // Tổng số dữ liệu (tùy ý)
+  const totalRows = 300;
   const paddedData = [...data];
 
-  // Thêm dữ liệu rỗng
   while (paddedData.length < totalRows) {
     paddedData.push({
       maKH: "",
@@ -54,7 +52,7 @@ const Table = () => {
     });
   }
 
-  const rowsPerPage = 10; // Số hàng mỗi trang
+  const rowsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(paddedData.length / rowsPerPage);
@@ -63,14 +61,12 @@ const Table = () => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = paddedData.slice(indexOfFirstRow, indexOfLastRow);
 
-  // Chuyển tới trang cụ thể
   const changePage = (pageNumber: number) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
   };
 
-  // Render các nút phân trang
   const renderPagination = () => {
     const pagination = [];
 
@@ -89,15 +85,14 @@ const Table = () => {
         </button>
       );
     }
-
     return pagination;
   };
 
   return (
     <div className="relative rounded-xl overflow-auto p-5">
-      <div className="shadow-sm overflow-hidden my-8 border border-[#BDBDBD] rounded-t-3xl">
+      <div className="shadow-sm overflow-scroll max-h-[650px] my-8 border border-[#BDBDBD] rounded-t-3xl">
         <table className="border-collapse table-auto w-full text-sm">
-          <thead className="bg-[#F2F2F2] font-semibold text-left">
+          <thead className="bg-[#F2F2F2] font-semibold text-left sticky top-0">
             <tr>
               <th className="border-b p-4 pl-8 pb-3 ">#</th>
               <th className="border-b p-4 pb-3 ">Mã KH</th>

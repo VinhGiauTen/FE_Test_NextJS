@@ -1,9 +1,17 @@
+"use client";
+
 import img from "@/app/Images/Rectangle 312.png";
 import logo from "@/app/Images/Vector.svg";
 import filter from "@/app/Images/Vector (1).svg";
 import Image from "next/image";
+import { useState } from "react";
+import CustomerForm from "@/app/components/CustomerForm";
 
 const Header = () => {
+  const [isOpen, setOpen] = useState(false);
+  const handleToggle = () => {
+    setOpen(!isOpen);
+  };
   return (
     <div className="flex p-5 justify-between">
       <div className="space-y-5">
@@ -31,11 +39,24 @@ const Header = () => {
           <Image src={img} alt="" />
         </div>
         <div className="text-right">
-          <button className="p-1 px-3 bg-[#BD8306] text-white rounded-lg">
+          <button
+            onClick={handleToggle}
+            className="p-1 px-3 bg-[#BD8306] text-white rounded-lg border border-[#BD8306] hover:bg-white hover:text-[#BD8306] transition"
+          >
             Thêm khách hàng
           </button>
         </div>
       </div>
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={handleToggle}
+          ></div>
+
+          <CustomerForm isOpen={isOpen} onToggle={handleToggle} />
+        </>
+      )}
     </div>
   );
 };
